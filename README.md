@@ -58,7 +58,7 @@ ocr = Ocr(r'C:\Program Files\Tesseract-OCR', r"e:\Python\pyocr\images\1.png").ex
 print(ocr)
 ```
 对参数解释一下  
-```
+```python
 def __init__(self, ocr_path, img_path, out_path=None, mode=3, delete=True):
         """
         ocr_path: 
@@ -99,4 +99,4 @@ Tesseract Open Source OCR Engine v3.05.00dev with Leptonica
 130768
 ```  
 
-**温馨提示：不能保证百分百正确，也不能保证百分百解析得出来。所以项目仅供参考！！！**
+**温馨提示：不能保证百分百正确，也不能保证百分百解析得出来。所以项目仅供参考！！！要有保证的话还是找打码平台吧**
