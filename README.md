@@ -78,21 +78,21 @@ def __init__(self, ocr_path, img_path, out_path=None, mode=3, delete=True):
 
 效果  
 
-![1.png](http://oog4yfyu0.bkt.clouddn.com/1.png)
+![1.png](https://github.com/chenjiandongx/pyocr/blob/master/images/1.png)
 ```
 C:\Users\54186\Anaconda3\python.exe E:/Python/pyocr/ocr.py
 Tesseract Open Source OCR Engine v3.05.00dev with Leptonica
 5108
 ```
 
-![2.jpg](http://oog4yfyu0.bkt.clouddn.com/2.jpg)
+![2.jpg](https://github.com/chenjiandongx/pyocr/blob/master/images/2.jpg)
 ```
 C:\Users\54186\Anaconda3\python.exe E:/Python/pyocr/ocr.py
 Tesseract Open Source OCR Engine v3.05.00dev with Leptonica
 4893
 ```
 
-![3.png](http://oog4yfyu0.bkt.clouddn.com/3.png)
+![3.png](https://github.com/chenjiandongx/pyocr/blob/master/images/3.png)
 ```
 C:\Users\54186\Anaconda3\python.exe E:/Python/pyocr/ocr.py
 Tesseract Open Source OCR Engine v3.05.00dev with Leptonica
