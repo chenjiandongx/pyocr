@@ -63,19 +63,21 @@ print(result)
 ```python
 def __init__(self, ocr_path, out_path=None, mode=3, delete=True):
     """
-    ocr_path:
-		  tesseract 引擎的安装路径，例如我的 r'C:\Program Files\Tesseract-OCR'
-    out_path:
-			输出文件路径，如果只是简单为了获取解析出来的数字，可不管，默认地址为 r"D:\result.txt"
+    ocr_path:  
+      tesseract 引擎的安装路径，例如我的 r'C:\Program Files\Tesseract-OCR'
+    out_path:  
+      输出文件路径，如果只是简单为了获取解析出来的数字，可不管，默认地址为 r"D:\result.txt"
     mode:
-			图片的切割模式，参见 tesseract 使用方法，默认为 3
+      图片的切割模式，参见 tesseract 使用方法，默认为 3
     delete:
-			是否保留生成的文本文件，默认不保存
+      是否保留生成的文本文件，默认不保存
     """
 def exec(self, *, img_path="", img_url=None):
     """ 执行命令
-      :param img_path: 本地图片路径，如 r"e:\python\pyocr\images\1.png"
-      :param img_url: 网络图片地址，如 "http://oog4yfyu0.bkt.clouddn.com/2.jpg"
+    img_path:
+      本地图片路径，如 r"e:\python\pyocr\images\1.png"
+    img_url:
+      网络图片地址，如 "http://oog4yfyu0.bkt.clouddn.com/2.jpg"
     """
 ```  
 
