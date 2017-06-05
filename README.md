@@ -54,24 +54,29 @@ Single options:
 
 使用方法
 ```
-ocr = Ocr(r'C:\Program Files\Tesseract-OCR', r"e:\Python\pyocr\images\1.png").exec()
-print(ocr)
+ocr = Ocr(r'C:\Program Files\Tesseract-OCR')
+result = ocr.exec(img_path=r"e:\python\pyocr\images\1.png")
+result = ocr.exec(img_url="http://oog4yfyu0.bkt.clouddn.com/2.jpg")
+print(result)
 ```
 对参数解释一下  
 ```python
-def __init__(self, ocr_path, img_path, out_path=None, mode=3, delete=True):
-        """
-        ocr_path: 
-			tesseract 引擎的安装路径，例如我的 r'C:\Program Files\Tesseract-OCR'
-        img_path: 
-			要解析的图片路径，如 r"e:\Python\pyocr\images\1.png"
-        out_path: 
+def __init__(self, ocr_path, out_path=None, mode=3, delete=True):
+    """
+    ocr_path:
+		  tesseract 引擎的安装路径，例如我的 r'C:\Program Files\Tesseract-OCR'
+    out_path:
 			输出文件路径，如果只是简单为了获取解析出来的数字，可不管，默认地址为 r"D:\result.txt"
-        mode: 
+    mode:
 			图片的切割模式，参见 tesseract 使用方法，默认为 3
-        delete: 
+    delete:
 			是否保留生成的文本文件，默认不保存
-        """
+    """
+def exec(self, *, img_path="", img_url=None):
+    """ 执行命令
+      :param img_path: 本地图片路径，如 r"e:\python\pyocr\images\1.png"
+      :param img_url: 网络图片地址，如 "http://oog4yfyu0.bkt.clouddn.com/2.jpg"
+    """
 ```  
 
 至于为什么只是数字，是因为英文的总是不能完全解析出来，修改了 -l 参数也是没用，使用其自带的 tessdata 也没用，中文的话解析出来的内容完全看不懂...  （或许是我打开方式不对？）  

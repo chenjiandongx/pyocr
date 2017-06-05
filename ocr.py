@@ -1,4 +1,5 @@
 import os
+from urllib import request
 
 class Ocr():
 
@@ -17,22 +18,31 @@ class Ocr():
     10   Treat the image as a single character.
     """
 
-    def __init__(self, ocr_path, img_path, out_path=None, mode=3, delete=True):
+    def __init__(self, ocr_path, *, out_path=None, mode=3, delete=True):
         """
         :param ocr_path: tesseract 引擎的安装路径
-        :param img_path: 要解析的图片路径
         :param out_path: 输出文件路径
         :param mode: 图片的切割模式
         :param delete: 是否保留生成的文本文件
         """
         self._ocrpath = ocr_path
-        self._imgpath = img_path
         self._outpath = out_path
         self._mode = mode
         self._delete = delete
 
-    def exec(self):
-        """ 执行命令 """
+    def exec(self, *, img_path="", img_url=None):
+        """ 执行命令
+        :param img_path: 本地图片路径
+        :param img_url: 网络图片地址
+        """
+        img = r"D:\img.jpg"
+        if os.path.exists(img_path):
+            img = img_path
+        else:
+            try:
+                request.urlretrieve(img_url, img)
+            except Exception as e:
+                print(e)
         if self._outpath is None:
             self._outpath = r"D:\result"
         elif self._outpath.endswith(".txt"):
@@ -41,18 +51,20 @@ class Ocr():
             self._mode = 3
         os.chdir(self._ocrpath)
         cmd = r'tesseract.exe {img} {out} -psm {mode}'.\
-            format(img=self._imgpath, out=self._outpath, mode=self._mode)
+            format(img=img, out=self._outpath, mode=self._mode)
         os.system(cmd)
         try:
             with open(self._outpath + ".txt", "r") as f:
                 result = f.read().strip()
             if self._delete:
                 os.remove(self._outpath + ".txt")
+                os.remove(r"D:\img.jpg")
             return result
-        except IOError as e:
-            print(e)
+        except IOError:
+            print("无法找到该文件!")
         return None
 
 if __name__ == "__main__":
-    ocr = Ocr(r'C:\Program Files\Tesseract-OCR', r"e:\Python\pyocr\images\1.png").exec()
-    print(ocr)
+    ocr = Ocr(r'C:\Program Files\Tesseract-OCR')
+    result = ocr.exec(img_path=r"e:\python\pyocr\images\1.png")
+    print(result)
