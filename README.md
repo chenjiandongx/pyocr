@@ -55,7 +55,9 @@ Single options:
 使用方法
 ```
 ocr = Ocr(r'C:\Program Files\Tesseract-OCR')
+# 本地图片
 result = ocr.exec(img_path=r"e:\python\pyocr\images\1.png")
+# 网络图片
 result = ocr.exec(img_url="http://oog4yfyu0.bkt.clouddn.com/2.jpg")
 print(result)
 ```
@@ -80,7 +82,59 @@ def exec(self, *, img_path="", img_url=None):
       网络图片地址，如 "http://oog4yfyu0.bkt.clouddn.com/2.jpg"
     """
 ```  
+具体思路 
 
+本地图片的，先判断该文件是否存在；网络图片的，下载到本地，默认的保存路径是 r"D:\img.jpg" （保存在哪不重要，只是暂存而已，解析完会自动删除的）  
+```python
+img = r"D:\img.jpg"
+if os.path.exists(img_path):
+      img = img_path
+else:
+    try:
+        request.urlretrieve(img_url, img)
+    except Exception as e:
+        print(e)
+```  
+接下来是一些非必要参数
+```python
+# 默认的文本文件存放路径为 r"D:\result"（这个也不重要，程序结束也会自动删除）
+if self._outpath is None:
+    self._outpath = r"D:\result"
+
+# tesseract 在执行的时候，输出文件路径不需要带 .txt 后缀，它自己会生成的。
+elif self._outpath.endswith(".txt"):
+    self._outpath = self._outpath[:-4]
+
+# 这个是模式选择，如果模式非法设置为默认的 3
+if self._mode > 10 or self._mode < 0:
+    self._mode = 3
+```
+接下来就是执行命令
+```python
+# 当前目录切换到引擎安装路径
+os.chdir(self._ocrpath)  
+
+# 拼装命令
+cmd = r'tesseract.exe {img} {out} -psm {mode}'.\
+    format(img=img, out=self._outpath, mode=self._mode)
+
+# 执行命令
+os.system(cmd)
+
+# 读取解析结果
+try:
+    with open(self._outpath + ".txt", "r") as f:
+        result = f.read().strip()
+        # 删除临时存储文件
+        if self._delete:
+            os.remove(self._outpath + ".txt")
+            os.remove(r"D:\img.jpg")
+        # 将结果返回
+        return result
+except IOError:
+    print("无法找到该文件!")
+return None
+```
 至于为什么只是数字，是因为英文的总是不能完全解析出来，修改了 -l 参数也是没用，使用其自带的 tessdata 也没用，中文的话解析出来的内容完全看不懂...  （或许是我打开方式不对？）  
 
 效果  
